@@ -1,0 +1,161 @@
+﻿@model ToDoList_Hassan_El_Bardan.Models.ViewModelAufgabe
+@{
+    ViewBag.Title = "Aufgabe anlegen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Anlegen einer Aufgabe</h2>
+<style type="text/css">
+    .my-class {
+        color: black
+    }
+
+    span.my-class {
+        color: black
+    }
+
+    a.my-class {
+        color: black
+    }
+</style>
+
+@using (Html.BeginForm("Create", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        <h4>Aufgabe</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model._main.Titel, htmlAttributes: new
+       {
+           @class =
+"control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model._main.Titel, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control"
+               }
+           })
+                @Html.ValidationMessageFor(model => model._main.Titel, "", new
+           {
+               @class = "text-danger"
+           })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model._main.Kategorie.Kategorie_Name, htmlAttributes: new
+       {
+           @class =
+"control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @if (Model._lKategorie != null)
+                {
+                   @Html.DropDownListFor(m => m._kategorie.Id, new SelectList(Model._lKategorie, "Id","Kategorie_Name"), new { id = "selectTyp" })
+                }
+                else
+                {
+                    <select>
+                        <option>Kein Typ vorhanden</option>
+                    </select>
+                }
+                <a> </a>
+                <input type="button" value="+" onclick="location.href='@Url.Action("AddKategorie","Home"@*, new {whichView = "Create"}*@)' " class="btn btn-default" />
+                <a> </a>
+                <input id="btndeleteTyp" type="button" value="-" class="btn btn-default" />
+            </div>
+        </div>
+       
+        <div class="form-group">
+            @Html.LabelFor(model => model._main.Beschreibung, htmlAttributes: new
+       {
+           @class =
+"control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model._main.Beschreibung,5,5, new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control"
+               }
+           })
+                @Html.ValidationMessageFor(model => model._main.Beschreibung, "", new
+           {
+               @class
+= "text-danger"
+           })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model._main.Verantwortlicher, htmlAttributes: new
+       {
+           @class =
+"control-label col-md-2"
+       })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model._main.Verantwortlicher,  new
+           {
+               htmlAttributes = new
+               {
+                   @class = "form-control"
+               }
+           })
+                @Html.ValidationMessageFor(model => model._main.Verantwortlicher, "", new
+           {
+               @class
+= "text-danger"
+           })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input id="btneErstellen" type="submit" value="Eingabe speichern" class="btn btn-default" />
+                |
+                <span style="color: black">@Html.ActionLink("Zurück zur Liste", "Index", null, new { @class = "my-class" })</span>
+            </div>
+        </div>
+    </div>
+    
+    
+@section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#btnErstellen').click(function () {
+               
+                    var typ = document.getElementById('selectTyp');
+                    var slctyp = typ.options[typ.selectedIndex].value;
+                alert(slctyp);
+                    $.post('@Url.Action("Create", "Home", FormMethod.Post)',
+                        {
+                            typ: slctyp
+                        },
+                        function(data, status) {
+                            alert("Data: " + data + "\nStatus: " + status);
+                        }
+                    );
+                });
+            }
+        )
+
+    </script>
+<script type="text/javascript">
+        $(document).ready(function() {
+                $('#btndeleteTyp').click(function() {
+        var e = document.getElementById('selectTyp');
+        var slc = e.options[e.selectedIndex].value;
+        location.href = '@Html.Raw(Url.Action("DeleteKategorie", "Home"))' +
+            '?Id=' +
+            slc + '&roh=Create';
+    });
+}
+        );
+
+</script>
+    }
+}

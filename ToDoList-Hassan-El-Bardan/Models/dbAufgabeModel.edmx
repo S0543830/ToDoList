@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="db_ToDoListModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kategorie_Name" Type="nchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="main">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Titel" Type="nchar" MaxLength="500" />
+          <Property Name="Beschreibung" Type="nchar" MaxLength="1000" />
+          <Property Name="Kategorie_Id" Type="int" />
+          <Property Name="Anlegedatum" Type="datetime" Nullable="false" />
+          <Property Name="Änderungsdatum" Type="datetime" Nullable="false" />
+          <Property Name="Verantwortlicher" Type="nchar" MaxLength="50" />
+          <Property Name="isDone" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_main_Kategorie_Id">
+          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="0..1" />
+          <End Role="main" Type="Self.main" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="main">
+              <PropertyRef Name="Kategorie_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_ToDoListModelStoreContainer">
+          <EntitySet Name="Kategorie" EntityType="Self.Kategorie" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="main" EntityType="Self.main" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_main_Kategorie_Id" Association="Self.FK_dbo_main_Kategorie_Id">
+            <End Role="Kategorie" EntitySet="Kategorie" />
+            <End Role="main" EntitySet="main" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_ToDoListModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Kategorie">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kategorie_Name" Type="String" MaxLength="30" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="main" Relationship="Self.FK_dbo_main_Kategorie_Id" FromRole="Kategorie" ToRole="main" />
+        </EntityType>
+        <EntityType Name="main">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Titel" Type="String" MaxLength="500" FixedLength="true" Unicode="true" />
+          <Property Name="Beschreibung" Type="String" MaxLength="1000" FixedLength="true" Unicode="true" />
+          <Property Name="Kategorie_Id" Type="Int32" />
+          <Property Name="Anlegedatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Änderungsdatum" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Verantwortlicher" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="isDone" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Kategorie" Relationship="Self.FK_dbo_main_Kategorie_Id" FromRole="main" ToRole="Kategorie" />
+        </EntityType>
+        <Association Name="FK_dbo_main_Kategorie_Id">
+          <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="0..1" />
+          <End Role="main" Type="Self.main" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategorie">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="main">
+              <PropertyRef Name="Kategorie_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="db_ToDoListEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kategorie" EntityType="Self.Kategorie" />
+          <EntitySet Name="main" EntityType="Self.main" />
+          <AssociationSet Name="FK_dbo_main_Kategorie_Id" Association="Self.FK_dbo_main_Kategorie_Id">
+            <End Role="Kategorie" EntitySet="Kategorie" />
+            <End Role="main" EntitySet="main" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_ToDoListModelStoreContainer" CdmEntityContainer="db_ToDoListEntities1">
+          <EntitySetMapping Name="Kategorie">
+            <EntityTypeMapping TypeName="db_ToDoListModel.Kategorie">
+              <MappingFragment StoreEntitySet="Kategorie">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Kategorie_Name" ColumnName="Kategorie_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="main">
+            <EntityTypeMapping TypeName="db_ToDoListModel.main">
+              <MappingFragment StoreEntitySet="main">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Titel" ColumnName="Titel" />
+                <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+                <ScalarProperty Name="Kategorie_Id" ColumnName="Kategorie_Id" />
+                <ScalarProperty Name="Anlegedatum" ColumnName="Anlegedatum" />
+                <ScalarProperty Name="Änderungsdatum" ColumnName="Änderungsdatum" />
+                <ScalarProperty Name="Verantwortlicher" ColumnName="Verantwortlicher" />
+                <ScalarProperty Name="isDone" ColumnName="isDone" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Kein" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

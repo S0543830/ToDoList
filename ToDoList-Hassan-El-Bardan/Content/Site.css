@@ -3,6 +3,11 @@
     padding-bottom: 20px;
 }
 
+a.my-class { color:#333333}
+a.my-class:active { color:#666666}
+a.my-class:link { color:#999999}
+a.my-class:visited {color:#CCCCCC}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -22,3 +27,55 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.listObjectChoice {
+    background-color: #282c2b;
+    color: white;
+}
+
+.listObjectChoicekurz {
+    background-color: #282c2b;
+    color: white;
+    width: 50px;
+}
+
+.listObjectChoice:hover {
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: #cbcb3d;
+    text-decoration: none;
+    color: white;
+}
+
+.listObjectChoice:visited {
+    color: white;
+    text-decoration: none;
+}
+
+.horizontalBar {
+    margin: 0;
+    padding: 0;
+    margin-top: 5px;
+    height: 95px;
+}
+
+.horizontalBarItems {
+    float: left;
+    vertical-align: bottom;
+    margin-right: 30px;
+}
+.tableObjectlist {
+    width: 90%;
+    border: none;
+    border-collapse: separate;
+    border-spacing: 5px;
+    font-size: 14px;
+    margin: 0px;
+}
+
+.horizontalBarItems a {
+        display: block;
+        color: white;
+        text-align: center;
+        text-decoration: none;
+    }

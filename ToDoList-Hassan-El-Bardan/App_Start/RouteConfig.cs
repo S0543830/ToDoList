@@ -18,6 +18,27 @@ namespace ToDoList_Hassan_El_Bardan
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+              name: "deleteRoh",
+              url: "{controller}/{action}/{Id}/{roh}",
+              defaults: new { controller = "Home", action = "DeleteKategorie", id = UrlParameter.Optional }
+          );
+            routes.MapRoute(
+                name: "addProdukt",
+                url: "{controller}/{action}/{typ}",
+                defaults: new { controller = "Home", action = "Create", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "AddProduktTyp",
+                url: "{controller}/{action}/{_typ}",
+                defaults: new { controller = "Home", action = "DeleteKategorie", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "DeleteKategorie",
+                url: "{controller}/{action}/{_name}",
+                defaults: new { controller = "Home", action = "DeleteKatekorie", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="db_ToDoListModelStoreContainer" CdmEntityContainer="db_ToDoListEntities">
+    <EntitySetMapping Name="Kategorie">
+      <EntityTypeMapping TypeName="db_ToDoListModel.Kategorie">
+        <MappingFragment StoreEntitySet="Kategorie">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Kategorie_Name" ColumnName="Kategorie_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="main">
+      <EntityTypeMapping TypeName="db_ToDoListModel.main">
+        <MappingFragment StoreEntitySet="main">
+          <ScalarProperty Name="Beschreibung" ColumnName="Beschreibung" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Titel" ColumnName="Titel" />
+          <ScalarProperty Name="Kategorie_Id" ColumnName="Kategorie_Id" />
+          <ScalarProperty Name="Anlegedatum" ColumnName="Anlegedatum" />
+          <ScalarProperty Name="Änderungsdatum" ColumnName="Änderungsdatum" />
+          <ScalarProperty Name="Verantwortlicher" ColumnName="Verantwortlicher" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

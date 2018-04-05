@@ -1,31 +1,101 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+<style type="text/css"></style>
+@using PagedList;
+@using PagedList.Mvc;
+@model IPagedList<ToDoList_Hassan_El_Bardan.Models.main>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@{
+    ViewBag.Title = "To Do List";
+}
+@using (Html.BeginForm())
+{
+    <br />
+        <fieldset>
+            <div>
+                <input type="text" name="keyword" />
+                <a> </a>
+                <input class="btn-default" type="submit" value="Suche" />
+                <div class="horizontalBarItems">
+    <p style="color:black" id="btn-link">@Html.ActionLink("+ Aufgabe anlegen", "Create",null, new { @class = "my-class" })</p>
+    </div>
+    </div>
+    </fieldset>
+   
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.ActionLink("Titel", "Index", new
+                    {
+                        sortOn = "Titel",
+                        orderBy = ViewBag.OrderBy,
+                        pSortOn = ViewBag.SortOn,
+                        keyword = ViewBag.Keyword
+                    }, new { })
+                </th>
+                <th>
+                    @Html.ActionLink("isDone", "Index", new
+                 {
+                     sortOn = "isDone",
+                     orderBy = ViewBag.OrderBy,
+                     pSortOn = ViewBag.SortOn,
+                     keyword = ViewBag.Keyword
+                 }, new { })
+                </th>
+                <th>
+                    <a href='@Url.Action("DeleteAllDones","Home")'>
+                        Löschen aller erledigten Aufgaben
+                    </a>
+                </th>
+           </tr>
+           
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <a href='@Url.Action("Details", "Home", new {id = item.Id})'>
+                        @Html.DisplayFor(modelItem => item.Titel)
+                    </a>
+                </td>
+                <td>
+                    <a href='@Url.Action("SaveStatus","Home",new { id = item.Id })' >
+                        @Html.CheckBoxFor(modelItem => item.isDone)
+                    </a>
+                </td>
+                <td>
+                    @Html.ActionLink("Bearbeiten","Edit",new { id = item.Id}) |
+                    @Html.ActionLink("Löschen", "Delete", new { id = item.Id }) 
+                </td>
+            </tr>
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
+        }
+    </table>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="pagedList">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new
+   {
+       page,
+       sortOn = ViewBag.SortOn,
+       orderBy = ViewBag.OrderBy,
+       pSortOn =
+                ViewBag.SortOn,
+       keyword = ViewBag.Keyword
+   }),
+            PagedListRenderOptions.ClassicPlusFirstAndLast)
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-    </div>
-</div>
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+           
+                function setStatus()
+                {
+                    alert(this.checked);
+                }
+        
+           
+        )
+
+        </script>
+    }
+}

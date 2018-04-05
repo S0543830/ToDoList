@@ -160,12 +160,12 @@ legend {
 
 button,
 input,
-select,
-textarea {
+select {
   margin: 0;
   font-family: inherit;
   font-size: 100%;
 }
+
 
 button,
 input {
@@ -215,8 +215,11 @@ input::-moz-focus-inner {
 }
 
 textarea {
-  overflow: auto;
-  vertical-align: top;
+    overflow: auto;
+    vertical-align: top;
+    font-family: inherit;
+    width: 650px;
+    height: 100px;
 }
 
 table {

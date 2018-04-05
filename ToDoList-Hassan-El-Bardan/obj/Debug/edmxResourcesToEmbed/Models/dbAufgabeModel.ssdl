@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="db_ToDoListModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Kategorie">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Kategorie_Name" Type="nchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="main">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Titel" Type="nchar" MaxLength="500" />
+    <Property Name="Beschreibung" Type="nchar" MaxLength="1000" />
+    <Property Name="Kategorie_Id" Type="int" />
+    <Property Name="Anlegedatum" Type="datetime" Nullable="false" />
+    <Property Name="Änderungsdatum" Type="datetime" Nullable="false" />
+    <Property Name="Verantwortlicher" Type="nchar" MaxLength="50" />
+    <Property Name="isDone" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_main_Kategorie_Id">
+    <End Role="Kategorie" Type="Self.Kategorie" Multiplicity="0..1" />
+    <End Role="main" Type="Self.main" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Kategorie">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="main">
+        <PropertyRef Name="Kategorie_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="db_ToDoListModelStoreContainer">
+    <EntitySet Name="Kategorie" EntityType="Self.Kategorie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="main" EntityType="Self.main" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_dbo_main_Kategorie_Id" Association="Self.FK_dbo_main_Kategorie_Id">
+      <End Role="Kategorie" EntitySet="Kategorie" />
+      <End Role="main" EntitySet="main" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

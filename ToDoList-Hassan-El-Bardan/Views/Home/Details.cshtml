@@ -1,0 +1,48 @@
+﻿@model ToDoList_Hassan_El_Bardan.Models.ViewModelAufgabe
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Aufgabe</h2>
+
+<h2>Titel @Html.DisplayFor(model => model._main.Titel)</h2>
+
+<table class="table">
+    <tr>
+        <th>Kategorie:</th>
+        <th>Beschreibung: </th>
+        <th>Erledigt:</th>
+        <th>Verantwortlicher:</th>
+        <th>Erstellt:</th>
+        <th>Geändert:</th>
+    </tr>
+    <tr>
+        <td>
+            @Html.DisplayFor(model => model._kategorie.Kategorie_Name)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._main.Beschreibung)
+        </td>
+        <td>
+            @if(Model._main.isDone == true)
+            {
+                @Html.Encode("Active")
+            }
+            else
+            {
+                @Html.Encode("InActive")
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._main.Verantwortlicher)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._main.Anlegedatum)
+        </td>
+        <td>
+            @Html.DisplayFor(model => model._main.Änderungsdatum)
+        </td>
+    </tr>
+</table>
+<span style="color: black">@Html.ActionLink("Zurück zur Liste", "Index", null, new { @class = "my-class" })</span>
